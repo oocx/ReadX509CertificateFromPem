@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu'
+  vmImage: 'Ubuntu-16.04'
 
 variables:
   solution: '**/*.sln'
