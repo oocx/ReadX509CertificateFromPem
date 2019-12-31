@@ -33,11 +33,8 @@ steps:
   inputs:
     command: test
     projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"''
-
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 - task: PublishTestResults@2
-  condition: succeededOrFailed()
   inputs:
     testRunner: VSTest
     testResultsFiles: '**/*.trx'
-    
