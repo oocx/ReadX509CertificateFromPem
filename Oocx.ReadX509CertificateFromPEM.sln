@@ -5,7 +5,14 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oocx.ReadX509CertificateFromPem", "Oocx.ReadX509CertificateFromPEM\Oocx.ReadX509CertificateFromPem.csproj", "{96FB6A51-83CF-447A-A1E2-1DD4F84EB73D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oocx.ReadX509CertificateFromPem.Tests", "Oocx.ReadX509CertificateFromPem.Tests\Oocx.ReadX509CertificateFromPem.Tests.csproj", "{5AA6293B-58DC-403F-8D0A-B1632BC39D43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Oocx.ReadX509CertificateFromPem.Tests", "Oocx.ReadX509CertificateFromPem.Tests\Oocx.ReadX509CertificateFromPem.Tests.csproj", "{5AA6293B-58DC-403F-8D0A-B1632BC39D43}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CC6619E0-8A8E-4845-8E9A-538206508107}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

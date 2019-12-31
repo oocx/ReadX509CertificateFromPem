@@ -21,8 +21,7 @@ namespace Oocx.ReadX509CertificateFromPem.Tests
         }
 
         [TestMethod]
-        [DeploymentItem("ecdh")]
-        [Ignore("Currently fails with Exception 'only named curves are supported on this platform'")]
+        [DeploymentItem("ecdh")]        
         public void ShouldLoadCertificateWithPkcs8ECDHKey()
         {
             var sut = new CertificateFromPemReader();
