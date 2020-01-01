@@ -24,6 +24,7 @@ steps:
     projectKey: 'oocx_ReadX509CertificateFromPem'
     projectName: 'ReadX509CertificateFromPem'
     extraProperties: 'sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/coverage/coverage.opencover.xml'
+    enabled: false
 
 - task: UseDotNet@2
   displayName: 'Install .NET Core SDK'
@@ -58,6 +59,7 @@ steps:
     arguments: '--no-build --configuration Release /p:CollectCoverage=true /p:CoverletOutput=$(Build.SourcesDirectory)/coverage/ /p:CoverletOutputFormat=opencover'
     publishTestResults: false
   continueOnError: true
+  enabled: false
 
 - script: |
     dotnet tool install dotnet-reportgenerator-globaltool --tool-path .
@@ -65,6 +67,7 @@ steps:
   condition: eq( variables['Agent.OS'], 'Linux' )
   displayName: Run Reportgenerator on Linux
   continueOnError: true
+  enabled: false
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish Code Coverage'
@@ -73,6 +76,7 @@ steps:
     summaryFileLocation: '$(Build.SourcesDirectory)/coverage/coverage.opencover.xml'
     reportDirectory: '$(Build.SourcesDirectory)/coverage'
   continueOnError: true
+  enabled: false
 
 - task: DotNetCoreInstaller@0
   displayName: 'Use .NET Core SDK 2.2.103 For Sonar Cloud'
@@ -83,10 +87,12 @@ steps:
 - task: SonarCloudAnalyze@1
   displayName: 'Run SonarCloud Code Analysis'
   continueOnError: false
+  enabled: false
 
 - task: SonarCloudPublish@1
   displayName: 'Publish Quality Gate Result'
   continueOnError: false
+  enabled: false
 
 - task: UseDotNet@2
   displayName: 'Install .NET Core SDK'
@@ -94,6 +100,9 @@ steps:
     version: 3.1.x
     performMultiLevelLookup: true
 
+- script: git status
+
+- script: git checkout master
 
 - script: oocx-semantic-release -b master -r $(Build.SourcesDirectory) -p $(Build.SourcesDirectory)/Oocx.ReadX509CertificateFromPem publish
   displayName: 'Publish version number'
