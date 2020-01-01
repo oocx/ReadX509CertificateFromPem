@@ -21,9 +21,9 @@ displayName: 'Restore packages'
   inputs:
     command: restore
     projects: '**/*.csproj'
-    
 
 - task: SonarCloudPrepare@1
+  displayName: 'Prepare Code Analysis'
   inputs:    
     organization: 'oocx'
     projectKey: 'oocx_ReadX509CertificateFromPem'
