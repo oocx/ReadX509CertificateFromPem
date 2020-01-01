@@ -47,10 +47,12 @@ steps:
   displayName: 'Run Unit Tests'
   inputs:  
     command: test
-    projects: '**/*Tests/*.csproj'
-    arguments: ' --logger trx --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=$(Build.SourcesDirectory)/coverage/'
+    projects: '**/*Tests/*.csproj'    
+    arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutput=$(Agent.BuildDirectory)\coverage /p:CoverletOutputFormat=opencover /p:Exclude="[*Tests]*"'
+    nobuild: true
+    publishTestResults: false
   continueOnError: true
-  
+
 - script: |
     dotnet tool install dotnet-reportgenerator-globaltool --tool-path . 
     ./reportgenerator "-reports:$(Build.SourcesDirectory)/coverage/coverage.opencover.xml" "-targetdir:coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart"
