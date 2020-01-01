@@ -14,8 +14,7 @@ steps:
 - script: echo $GH_USER
 - script: echo $GH_TOKEN
   env:
-     GH_TOKEN: $(gh.token)
-- script: echo $(GH_TOKEN)
+     GH_TOKEN: $(GH_TOKEN)
 
 - task: DotNetCoreInstaller@0
   displayName: 'Use .NET Core SDK 2.2.103 For Sonar Cloud'
@@ -114,5 +113,6 @@ steps:
 - script: oocx-semantic-release -b master -r $(Build.SourcesDirectory) -p $(Build.SourcesDirectory)/Oocx.ReadX509CertificateFromPem publish
   displayName: 'Publish version number'
   env:
-     GH_TOKEN: $(gh.token)
+    GH_TOKEN: $(GH_TOKEN)
+
 
