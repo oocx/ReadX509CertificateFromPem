@@ -34,7 +34,7 @@ steps:
 - script: dotnet tool install --global Oocx.SemanticRelease.GlobalTool
   displayName: 'Install oocx-semantic release'
 
-- script: oocx-semantic-release -b master -r $(Build.SourcesDirectory) -d release
+- script: oocx-semantic-release -b master -r $(Build.SourcesDirectory) release -d
   displayName: 'Set version number'
 
 - task: DotNetCoreCLI@2
