@@ -48,8 +48,7 @@ steps:
   inputs:  
     command: test
     projects: '**/*Tests/*.csproj'    
-    arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutput=$(Build.SourcesDirectory)/coverage/coverage.opencover.xml /p:CoverletOutputFormat=opencover /p:Exclude="[*Tests]*"'
-    nobuild: true
+    arguments: '--no-build --configuration Release /p:CollectCoverage=true /p:CoverletOutput=$(Build.SourcesDirectory)/coverage/ /p:CoverletOutputFormat=opencover'                    
     publishTestResults: false
   continueOnError: true
 
@@ -61,7 +60,7 @@ steps:
 
 - script: |
     dotnet tool install dotnet-reportgenerator-globaltool --tool-path . 
-    ./reportgenerator "-reports:$(Build.SourcesDirectory)/coverage/coverage.opencover.xml" "-targetdir:coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart"
+    ./reportgenerator "-reports:$(Build.SourcesDirectory)/coverage/coverage.opencover.xml" targetdir:coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart"
   condition: eq( variables['Agent.OS'], 'Linux' )
   displayName: Run Reportgenerator on Linux
   continueOnError: true
