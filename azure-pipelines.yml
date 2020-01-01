@@ -17,10 +17,18 @@ steps:
     performMultiLevelLookup: true
 
 - task: DotNetCoreCLI@2
+displayName: 'Restore packages'
   inputs:
     command: restore
     projects: '**/*.csproj'
     
+
+- task: SonarCloudPrepare@1
+  inputs:    
+    organization: 'oocx'
+    projectKey: 'oocx_ReadX509CertificateFromPem'
+    projectName: 'ReadX509CertificateFromPem'
+    extraProperties: 'sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/coverage/coverage.opencover.xml'
 
 - task: DotNetCoreCLI@2
   displayName: Build
@@ -34,3 +42,11 @@ steps:
     command: test
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+
+- task: SonarCloudAnalyze@1
+  displayName: 'Run SonarCloud Code Analysis'
+  continueOnError: false
+
+  - task: SonarCloudPublish@1
+  displayName: 'Publish Quality Gate Result'
+  continueOnError: false
