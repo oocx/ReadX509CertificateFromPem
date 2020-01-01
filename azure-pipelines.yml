@@ -31,7 +31,7 @@ steps:
     version: 3.1.x
     performMultiLevelLookup: true
 
-- script: dotnet tool install --global Oocx.SemanticRelease.GlobalTool --version 3.0.1
+- script: dotnet tool install --global Oocx.SemanticRelease.GlobalTool --version 3.0.2
   displayName: 'Install oocx-semantic release'
 
 - script: oocx-semantic-release -b master -r $(Build.SourcesDirectory) -p $(Build.SourcesDirectory)/Oocx.ReadX509CertificateFromPem release -d
