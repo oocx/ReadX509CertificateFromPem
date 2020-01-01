@@ -10,6 +10,20 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
+- task: DotNetCoreInstaller@0
+  displayName: 'Use .NET Core SDK 2.2.103 For Sonar Cloud'
+  inputs:
+    version: '2.2.103'
+
+- task: SonarCloudPrepare@1
+  displayName: 'Prepare Code Analysis'
+  inputs:    
+    SonarCloud: 'SonarCloud'
+    organization: 'oocx'
+    projectKey: 'oocx_ReadX509CertificateFromPem'
+    projectName: 'ReadX509CertificateFromPem'
+    extraProperties: 'sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/coverage/coverage.opencover.xml'
+
 - task: UseDotNet@2
   displayName: 'Install .NET Core SDK'
   inputs:
@@ -21,16 +35,7 @@ steps:
   inputs:
     command: restore
     projects: '**/*.csproj'
-
-- task: SonarCloudPrepare@1
-  displayName: 'Prepare Code Analysis'
-  inputs:    
-    SonarCloud: 'SonarCloud'
-    organization: 'oocx'
-    projectKey: 'oocx_ReadX509CertificateFromPem'
-    projectName: 'ReadX509CertificateFromPem'
-    extraProperties: 'sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/coverage/coverage.opencover.xml'
-
+    
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
