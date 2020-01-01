@@ -110,11 +110,12 @@ steps:
 
 - script: git checkout master
 
-- script: |
-    export $version=oocx-semantic-release -b master -r $(Build.SourcesDirectory) -p $(Build.SourcesDirectory)/Oocx.ReadX509CertificateFromPem project-version
-    git tag $version
+- bash: |
+    export getVersion = "oocx-semantic-release -b master -r  -p $(SourcesDirectory)/Oocx.ReadX509CertificateFromPem project-version"
+    git tag $(getVersion)
     git push --tags
   displayName: 'Publish version number'
   env:
     GH_TOKEN: $(GH_TOKEN)
-    GH:USER: $(GH_USER)
+    GH_USER: $(GH_USER)
+    SourcesDirectory: $(Build.SourcesDirectory)
