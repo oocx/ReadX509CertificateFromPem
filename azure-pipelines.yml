@@ -17,7 +17,7 @@ steps:
 
 - task: SonarCloudPrepare@1
   displayName: 'Prepare Code Analysis'
-  inputs:    
+  inputs:
     SonarCloud: 'SonarCloud'
     organization: 'oocx'
     projectKey: 'oocx_ReadX509CertificateFromPem'
@@ -35,7 +35,13 @@ steps:
   inputs:
     command: restore
     projects: '**/*.csproj'
-    
+
+- script: |
+    ls -la /home/vsts/work/1/s/
+    ls -la /home/vsts/work/1/s/Oocx.ReadX509CertificateFromPem
+    ls -la /home/vsts/work/1/s/Oocx.ReadX509CertificateFromPem.Tests
+    ls -la /home/vsts/work/1/s/Oocx.ReadX509CertificateFromPem.Tests/Oocx.ReadX509CertificateFromPem.Tests.csproj
+
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
@@ -45,15 +51,15 @@ steps:
 
 - task: DotNetCoreCLI@2
   displayName: 'Run Unit Tests'
-  inputs:  
+  inputs:
     command: test
-    projects: '**/*Tests/*.csproj'    
-    arguments: '--no-build --configuration Release /p:CollectCoverage=true /p:CoverletOutput=$(Build.SourcesDirectory)/coverage/ /p:CoverletOutputFormat=opencover'                    
+    projects: '**/*Tests/*.csproj'
+    arguments: '--no-build --configuration Release /p:CollectCoverage=true /p:CoverletOutput=$(Build.SourcesDirectory)/coverage/ /p:CoverletOutputFormat=opencover'
     publishTestResults: false
   continueOnError: true
 
 - script: |
-    dotnet tool install dotnet-reportgenerator-globaltool --tool-path . 
+    dotnet tool install dotnet-reportgenerator-globaltool --tool-path .
     ./reportgenerator "-reports:$(Build.SourcesDirectory)/coverage/coverage.opencover.xml" -targetdir:coverage/Cobertura "-reporttypes:Cobertura;HTMLInline;HTMLChart"
   condition: eq( variables['Agent.OS'], 'Linux' )
   displayName: Run Reportgenerator on Linux
