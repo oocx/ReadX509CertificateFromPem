@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <IsPackable>false</IsPackable>
-    <PropertyGuid>{6DBA769C-8D9E-4444-A045-45E8B665C996}</PropertyGuid><!-- required for sonar cloud -->
+    <PropertyGuid>6DBA769C-8D9E-4444-A045-45E8B665C996</PropertyGuid><!-- required for sonar cloud -->
   </PropertyGroup>
 
   <ItemGroup>
