@@ -48,7 +48,7 @@ steps:
   inputs:  
     command: test
     projects: '**/*Tests/*.csproj'    
-    arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutput=$(Agent.BuildDirectory)\coverage /p:CoverletOutputFormat=opencover /p:Exclude="[*Tests]*"'
+    arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutput=$(Build.SourcesDirectory\coverage /p:CoverletOutputFormat=opencover /p:Exclude="[*Tests]*"'
     nobuild: true
     publishTestResults: false
   continueOnError: true
@@ -58,6 +58,7 @@ steps:
     ./reportgenerator "-reports:$(Build.SourcesDirectory)/coverage/coverage.opencover.xml" "-targetdir:coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart"
   condition: eq( variables['Agent.OS'], 'Linux' )
   displayName: Run Reportgenerator on Linux
+  continueOnError: true
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish Code Coverage'
@@ -65,6 +66,7 @@ steps:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(Build.SourcesDirectory)/coverage/coverage.opencover.xml'
     reportDirectory: '$(Build.SourcesDirectory)/coverage'
+  continueOnError: true
 
 - task: DotNetCoreInstaller@0
   displayName: 'Use .NET Core SDK 2.2.103 For Sonar Cloud'
