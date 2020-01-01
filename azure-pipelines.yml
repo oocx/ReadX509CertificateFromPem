@@ -18,7 +18,7 @@ steps:
 - script: dotnet tool install --global SemanticRelease.GlobalTool
   displayName: 'Install semantic release'
 
-- script: semantic-release release -d -p$(Build.SourcesDirectory)/Oocx.ReadX509CertificateFromPem/Oocx.ReadX509CertificateFromPem.csproj
+- script: semantic-release release -d -p $(Build.SourcesDirectory)/Oocx.ReadX509CertificateFromPem/Oocx.ReadX509CertificateFromPem.csproj
   displayName: 'Set version number'
 
 - task: SonarCloudPrepare@1
