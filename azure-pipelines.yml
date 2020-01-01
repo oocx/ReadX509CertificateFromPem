@@ -47,6 +47,6 @@ steps:
   displayName: 'Run SonarCloud Code Analysis'
   continueOnError: false
 
-  - task: SonarCloudPublish@1
+- task: SonarCloudPublish@1
   displayName: 'Publish Quality Gate Result'
   continueOnError: false
