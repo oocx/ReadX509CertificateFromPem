@@ -44,10 +44,19 @@ steps:
     arguments: '--configuration Release' # Update this to match your need
 
 - task: DotNetCoreCLI@2
-  inputs:
+  displayName: 'Run Unit Tests'
+  inputs:  
     command: test
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+  continueOnError: true
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish Code Coverage'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(Build.SourcesDirectory)/coverage/coverage.opencover.xml'
+    reportDirectory: '$(Build.SourcesDirectory)/coverage'
 
 - task: SonarCloudAnalyze@1
   displayName: 'Run SonarCloud Code Analysis'
