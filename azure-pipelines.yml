@@ -15,6 +15,12 @@ steps:
   inputs:
     version: '2.2.103'
 
+- script: dotnet tool install --global SemanticRelease.GlobalTool
+  displayName: 'Install semantic release'
+
+- script: semantic-release release -d -p$(Build.SourcesDirectory)/Oocx.ReadX509CertificateFromPem/Oocx.ReadX509CertificateFromPem.csproj
+  displayName: 'Set version number'
+
 - task: SonarCloudPrepare@1
   displayName: 'Prepare Code Analysis'
   inputs:
@@ -35,12 +41,6 @@ steps:
   inputs:
     command: restore
     projects: '**/*.csproj'
-
-- script: dotnet tool install --global SemanticRelease.GlobalTool
-  displayName: 'Install semantic release'
-
-- script: semantic-release release -d -p$(Build.SourcesDirectory)/Oocx.ReadX509CertificateFromPem/Oocx.ReadX509CertificateFromPem.csproj
-  displayName: 'Set version number'
 
 - task: DotNetCoreCLI@2
   displayName: Build
