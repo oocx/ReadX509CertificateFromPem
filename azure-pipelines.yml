@@ -88,5 +88,11 @@ steps:
   displayName: 'Publish Quality Gate Result'
   continueOnError: false
 
+- task: UseDotNet@2
+  displayName: 'Install .NET Core SDK'
+  inputs:
+    version: 3.1.x
+    performMultiLevelLookup: true
+
 - script: oocx-semantic-release -b master -r $(Build.SourcesDirectory) -p $(Build.SourcesDirectory)/Oocx.ReadX509CertificateFromPem publish
   displayName: 'Publish version number'
