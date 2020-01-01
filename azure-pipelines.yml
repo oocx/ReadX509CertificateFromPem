@@ -17,7 +17,7 @@ steps:
     performMultiLevelLookup: true
 
 - task: DotNetCoreCLI@2
-displayName: 'Restore packages'
+  displayName: 'Restore packages'
   inputs:
     command: restore
     projects: '**/*.csproj'
