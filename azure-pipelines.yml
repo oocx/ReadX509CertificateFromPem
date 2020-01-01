@@ -128,5 +128,5 @@ steps:
     GH_TOKEN: $(GH_TOKEN)
     GH:USER: $(GH_USER)
 
--script: git push --tags
+- script: git push --tags
 
