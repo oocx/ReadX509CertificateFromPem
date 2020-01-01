@@ -15,6 +15,7 @@ steps:
 - script: echo $GH_TOKEN
   env:
      GH_TOKEN: $(gh.token)
+- script: echo $(GH_TOKEN)
 
 - task: DotNetCoreInstaller@0
   displayName: 'Use .NET Core SDK 2.2.103 For Sonar Cloud'
