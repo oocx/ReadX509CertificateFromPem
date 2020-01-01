@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Oocx.ReadX509CertificateFromPEM\Oocx.ReadX509CertificateFromPem.csproj" />
+    <ProjectReference Include="..\Oocx.ReadX509CertificateFromPem\Oocx.ReadX509CertificateFromPem.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Oocx.ReadX509CertificateFromPEM;
+using Oocx.ReadX509CertificateFromPem;
 
 namespace Oocx.ReadX509CertificateFromPem.Tests
 {
@@ -30,7 +30,7 @@ namespace Oocx.ReadX509CertificateFromPem.Tests
             var certificate = sut.LoadCertificateWithPrivateKey("ecdh/certificate.pem", "ecdh/key.pem");
 
             certificate.SerialNumber.Should().Be("009F8967503EECCE07");
-            certificate.HasPrivateKey.Should().BeTrue();            
+            certificate.HasPrivateKey.Should().BeTrue();
         }
 
         [TestMethod]
@@ -42,7 +42,7 @@ namespace Oocx.ReadX509CertificateFromPem.Tests
             var certificate = sut.LoadCertificateWithPrivateKey("ecdh2/certificate.pem", "ecdh2/key.pem");
 
             certificate.SerialNumber.Should().Be("00DBE1B57BA78B7A78");
-            certificate.HasPrivateKey.Should().BeTrue();            
+            certificate.HasPrivateKey.Should().BeTrue();
         }
     }
 }

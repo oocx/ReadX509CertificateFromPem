@@ -1,4 +1,4 @@
-﻿namespace Oocx.ReadX509CertificateFromPEM
+﻿namespace Oocx.ReadX509CertificateFromPem
 {
     public static class KeyType
     {

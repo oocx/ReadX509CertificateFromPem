@@ -7,11 +7,11 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Oocx.ReadX509CertificateFromPEM
+namespace Oocx.ReadX509CertificateFromPem
 {
     public class CertificateFromPemReader
     {
-               
+
 
         public X509Certificate2 LoadCertificateWithPrivateKey(string certificateFileName, string privateKeyFileName)
         {
@@ -30,10 +30,10 @@ namespace Oocx.ReadX509CertificateFromPEM
         }
 
         private static string DetectKeyType(string pem)
-        {            
+        {
             var keyTypeRegEx = new Regex("-----BEGIN ([A-Z\\s]*)");
             var matches = keyTypeRegEx.Matches(pem);
-            
+
             if (matches.Count == 0) { throw new Exception("No private key found in file.");  }
             for (int mc= 0; mc < matches.Count; mc++)
             for (int g = 0; g < matches[mc].Groups.Count; g++)
@@ -58,7 +58,7 @@ namespace Oocx.ReadX509CertificateFromPEM
             AsymmetricAlgorithm ECKeyPkcs8(ReadOnlySpan<byte> bytes)
             {
                 var ecdh = ECDiffieHellman.Create();
-                ecdh.ImportPkcs8PrivateKey(bytes, out _);                             
+                ecdh.ImportPkcs8PrivateKey(bytes, out _);
                 return ecdh;
             }
 
@@ -71,18 +71,18 @@ namespace Oocx.ReadX509CertificateFromPEM
 
             switch (keyType)
             {
-                
+
                 case KeyType.ECPrivateKey: return ECKey(privateKeyBytes.Span);
-                case KeyType.RSAPrivateKey: return RSAKey(privateKeyBytes.Span);                   
+                case KeyType.RSAPrivateKey: return RSAKey(privateKeyBytes.Span);
                 case KeyType.PrivateKey:
                     var key = Pkcs8PrivateKeyInfo.Decode(privateKeyBytes, out _);
                     if (key.AlgorithmId.FriendlyName == "RSA")
                     {
                         return RSAKey(key.PrivateKeyBytes.Span);
                     }
-                                      
+
                     if (key.AlgorithmId.FriendlyName == "ECC")
-                    {                        
+                    {
                         return ECKeyPkcs8(privateKeyBytes.Span);
                     }
                     throw new Exception($"Unsupported private key type {key.AlgorithmId.FriendlyName}");
@@ -98,7 +98,7 @@ namespace Oocx.ReadX509CertificateFromPEM
             return certificate;
         }
         private static X509Certificate2 CreateCertificateWithPrivateKey(X509Certificate2 certificate, AsymmetricAlgorithm privateKey)
-        {                        
+        {
             var builder = new Pkcs12Builder();
             var contents = new Pkcs12SafeContents();
             contents.AddCertificate(certificate);

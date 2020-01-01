@@ -2,12 +2,12 @@
 using System.IO;
 using System.Text;
 
-namespace Oocx.ReadX509CertificateFromPEM
+namespace Oocx.ReadX509CertificateFromPem
 {
 
     public static class PemDecoder
     {
-               
+
         public static byte[] DecodeSectionFromFile(string fileName, string type)
         {
             var encodedData = File.ReadAllText(fileName);

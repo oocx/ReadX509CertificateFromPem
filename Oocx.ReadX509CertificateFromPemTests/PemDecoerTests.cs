@@ -1,6 +1,6 @@
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Oocx.ReadX509CertificateFromPEM;
+using Oocx.ReadX509CertificateFromPem;
 using System.Text;
 
 namespace Oocx.ReadX509CertificateFromPem.Tests
