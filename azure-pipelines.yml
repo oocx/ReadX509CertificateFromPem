@@ -48,7 +48,7 @@ steps:
   inputs:  
     command: test
     projects: '**/*Tests/*.csproj'    
-    arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutput=$(Build.SourcesDirectory\coverage /p:CoverletOutputFormat=opencover /p:Exclude="[*Tests]*"'
+    arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutput=$(Build.SourcesDirectory\coverage) /p:CoverletOutputFormat=opencover /p:Exclude="[*Tests]*"'
     nobuild: true
     publishTestResults: false
   continueOnError: true
