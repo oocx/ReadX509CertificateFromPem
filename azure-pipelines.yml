@@ -40,7 +40,7 @@ steps:
   displayName: Build
   inputs:
     command: build
-    projects: '**/*.csproj'
+    projects: '**/*.sln'
     arguments: '--configuration Release' # Update this to match your need
 
 - task: DotNetCoreCLI@2
@@ -53,14 +53,8 @@ steps:
   continueOnError: true
 
 - script: |
-    ls -la $(Build.SourcesDirectory)
-    ls -la $(Build.SourcesDirectory)/coverage
-    ls -la coverage
-  displayName: 'debug'
-
-- script: |
     dotnet tool install dotnet-reportgenerator-globaltool --tool-path . 
-    ./reportgenerator "-reports:$(Build.SourcesDirectory)/coverage/coverage.opencover.xml" -targetdir:coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart"
+    ./reportgenerator "-reports:$(Build.SourcesDirectory)/coverage/coverage.opencover.xml" -targetdir:coverage/Cobertura "-reporttypes:Cobertura;HTMLInline;HTMLChart"
   condition: eq( variables['Agent.OS'], 'Linux' )
   displayName: Run Reportgenerator on Linux
   continueOnError: true
