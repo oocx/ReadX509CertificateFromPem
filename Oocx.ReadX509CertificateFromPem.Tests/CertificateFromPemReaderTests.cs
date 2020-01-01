@@ -21,7 +21,8 @@ namespace Oocx.ReadX509CertificateFromPem.Tests
         }
 
         [TestMethod]
-        [DeploymentItem("ecdh")]        
+        [DeploymentItem("ecdh")]
+        [Ignore]
         public void ShouldLoadCertificateWithPkcs8ECDHKey()
         {
             var sut = new CertificateFromPemReader();
