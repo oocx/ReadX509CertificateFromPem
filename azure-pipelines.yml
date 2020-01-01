@@ -54,6 +54,12 @@ steps:
   continueOnError: true
 
 - script: |
+    ls -la $(Build.SourcesDirectory)
+    ls -la $(Build.SourcesDirectory)/coverage
+    ls -la coverage
+  displayName: 'debug'
+
+- script: |
     dotnet tool install dotnet-reportgenerator-globaltool --tool-path . 
     ./reportgenerator "-reports:$(Build.SourcesDirectory)/coverage/coverage.opencover.xml" "-targetdir:coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart"
   condition: eq( variables['Agent.OS'], 'Linux' )
