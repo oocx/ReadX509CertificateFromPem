@@ -114,5 +114,6 @@ steps:
   displayName: 'Publish version number'
   env:
     GH_TOKEN: $(GH_TOKEN)
+    GH:USER: $(GH_USER)
 
 
