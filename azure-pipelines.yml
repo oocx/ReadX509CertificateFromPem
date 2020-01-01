@@ -36,12 +36,6 @@ steps:
     command: restore
     projects: '**/*.csproj'
 
-- script: |
-    ls -la /home/vsts/work/1/s/
-    ls -la /home/vsts/work/1/s/Oocx.ReadX509CertificateFromPem
-    ls -la /home/vsts/work/1/s/Oocx.ReadX509CertificateFromPem.Tests
-    ls -la /home/vsts/work/1/s/Oocx.ReadX509CertificateFromPem.Tests/Oocx.ReadX509CertificateFromPem.Tests.csproj
-
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
