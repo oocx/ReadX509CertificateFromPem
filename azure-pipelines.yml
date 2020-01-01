@@ -18,7 +18,7 @@ steps:
 - script: dotnet tool install --global SemanticRelease.GlobalTool
   displayName: 'Install semantic release'
 
-- script: semantic-release release -b master release
+- script: semantic-release -b master release
   displayName: 'Set version number'
 
 - task: SonarCloudPrepare@1
