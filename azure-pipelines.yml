@@ -10,10 +10,10 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-#- task: DotNetCoreInstaller@0
-#  displayName: 'Use .NET Core SDK 2.2.103 For Sonar Cloud'
-#  inputs:
-#    version: '2.2.103'
+- task: DotNetCoreInstaller@0
+  displayName: 'Use .NET Core SDK 2.2.103 For Sonar Cloud'
+  inputs:
+    version: '2.2.103'
 
 - task: SonarCloudPrepare@1
   displayName: 'Prepare Code Analysis'
@@ -24,11 +24,11 @@ steps:
     projectName: 'ReadX509CertificateFromPem'
     extraProperties: 'sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/coverage/coverage.opencover.xml'
 
-#- task: UseDotNet@2
-#  displayName: 'Install .NET Core SDK'
-#  inputs:
-#    version: 3.1.x
-#    performMultiLevelLookup: true
+- task: UseDotNet@2
+  displayName: 'Install .NET Core SDK'
+  inputs:
+    version: 3.1.x
+    performMultiLevelLookup: true
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore packages'
@@ -64,10 +64,10 @@ steps:
     summaryFileLocation: '$(Build.SourcesDirectory)/coverage/coverage.opencover.xml'
     reportDirectory: '$(Build.SourcesDirectory)/coverage'
 
-#- task: DotNetCoreInstaller@0
-#  displayName: 'Use .NET Core SDK 2.2.103 For Sonar Cloud'
-#  inputs:
-#    version: '2.2.103'
+- task: DotNetCoreInstaller@0
+  displayName: 'Use .NET Core SDK 2.2.103 For Sonar Cloud'
+  inputs:
+    version: '2.2.103'
 
 
 - task: SonarCloudAnalyze@1
