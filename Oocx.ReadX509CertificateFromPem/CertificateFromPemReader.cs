@@ -5,14 +5,11 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.Pkcs;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Oocx.ReadX509CertificateFromPem
 {
     public class CertificateFromPemReader
     {
-
-
         public X509Certificate2 LoadCertificateWithPrivateKey(string certificateFileName, string privateKeyFileName)
         {
             var privateKey = LoadPrivateKey(privateKeyFileName);
@@ -34,16 +31,18 @@ namespace Oocx.ReadX509CertificateFromPem
             var keyTypeRegEx = new Regex("-----BEGIN ([A-Z\\s]*)");
             var matches = keyTypeRegEx.Matches(pem);
 
-            if (matches.Count == 0) { throw new Exception("No private key found in file.");  }
+            if (matches.Count == 0) { throw new InvalidDataException("No private key found in file.");  }
             for (int mc= 0; mc < matches.Count; mc++)
-            for (int g = 0; g < matches[mc].Groups.Count; g++)
             {
-                if (KeyType.KnownTypes.Contains(matches[mc].Groups[g].Value))
+                for (int g = 0; g < matches[mc].Groups.Count; g++)
                 {
-                    return matches[mc].Groups[g].Value;
+                    if (KeyType.KnownTypes.Contains(matches[mc].Groups[g].Value))
+                    {
+                        return matches[mc].Groups[g].Value;
+                    }
                 }
             }
-            throw new Exception("No supported key detected in key file");
+            throw new InvalidDataException("No supported key detected in key file");
         }
 
         private static AsymmetricAlgorithm GetPrivateKey(string keyType, ReadOnlyMemory<byte> privateKeyBytes)
@@ -85,9 +84,9 @@ namespace Oocx.ReadX509CertificateFromPem
                     {
                         return ECKeyPkcs8(privateKeyBytes.Span);
                     }
-                    throw new Exception($"Unsupported private key type {key.AlgorithmId.FriendlyName}");
+                    throw new InvalidDataException($"Unsupported private key type {key.AlgorithmId.FriendlyName}");
                 default:
-                    throw new Exception($"Unsupported key type: {keyType}.");
+                    throw new InvalidDataException($"Unsupported key type: {keyType}.");
             }
         }
 
