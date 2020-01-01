@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PropertyGuid>{BCC6A470-22A2-4CA0-B5B7-BD71ACEC8BD6}</PropertyGuid><!-- required for sonar cloud -->
   </PropertyGroup>
 
   <ItemGroup>
