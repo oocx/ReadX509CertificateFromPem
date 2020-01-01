@@ -15,11 +15,6 @@ steps:
   inputs:
     version: '2.2.103'
 
-- script: dotnet tool install --global SemanticRelease.GlobalTool
-  displayName: 'Install semantic release'
-
-- script: semantic-release -b master release
-  displayName: 'Set version number'
 
 - task: SonarCloudPrepare@1
   displayName: 'Prepare Code Analysis'
@@ -35,6 +30,12 @@ steps:
   inputs:
     version: 3.1.x
     performMultiLevelLookup: true
+
+- script: dotnet tool install --global Oocx.SemanticRelease.GlobalTool
+  displayName: 'Install oocx-semantic release'
+
+- script: oocx.semantic-release -b master -r $(Build.SourcesDirectory) release
+  displayName: 'Set version number'
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore packages'
