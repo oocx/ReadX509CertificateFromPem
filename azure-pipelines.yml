@@ -114,7 +114,7 @@ steps:
     getVersion="oocx-semantic-release -b master -r $SourcesDirectory -p $SourcesDirectory/Oocx.ReadX509CertificateFromPem project-version"
     echo $getVersion
     echo $GH_USER
-    echo Test: $($getVersion))
+    echo Test: $($getVersion)
     git tag $($getVersion)
     git push --tags
   displayName: 'Publish version number'
