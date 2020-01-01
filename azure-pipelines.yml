@@ -25,6 +25,7 @@ steps:
 - task: SonarCloudPrepare@1
   displayName: 'Prepare Code Analysis'
   inputs:    
+    SonarCloud: 'SonarCloud'
     organization: 'oocx'
     projectKey: 'oocx_ReadX509CertificateFromPem'
     projectName: 'ReadX509CertificateFromPem'
