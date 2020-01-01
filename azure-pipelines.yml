@@ -48,8 +48,14 @@ steps:
   inputs:  
     command: test
     projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+    arguments: ' --logger trx --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=$(Build.SourcesDirectory)/coverage/ $(testProject)'
   continueOnError: true
+  
+- script: |
+    dotnet tool install dotnet-reportgenerator-globaltool --tool-path . 
+    ./reportgenerator "-reports:$(Build.SourcesDirectory)/coverage/coverage.opencover.xml" "-targetdir:coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart"
+  condition: eq( variables['Agent.OS'], 'Linux' )
+  displayName: Run Reportgenerator on Linux
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish Code Coverage'
@@ -57,6 +63,12 @@ steps:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(Build.SourcesDirectory)/coverage/coverage.opencover.xml'
     reportDirectory: '$(Build.SourcesDirectory)/coverage'
+
+- task: DotNetCoreInstaller@0
+  displayName: 'Use .NET Core SDK 2.2.103 For Sonar Cloud'
+  inputs:
+    version: '2.2.103'
+
 
 - task: SonarCloudAnalyze@1
   displayName: 'Run SonarCloud Code Analysis'
