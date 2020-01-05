@@ -1,0 +1,90 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'Ubuntu-18.04'
+
+steps:
+
+- task: DotNetCoreInstaller@0
+  displayName: 'Use .NET Core SDK 2.2.103 For Sonar Cloud'
+  inputs:
+    version: '2.2.103'
+
+
+- task: SonarCloudPrepare@1
+  displayName: 'Prepare Code Analysis'
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: 'oocx'
+    projectKey: 'oocx_ReadX509CertificateFromPem'
+    projectName: 'ReadX509CertificateFromPem'
+    extraProperties: 'sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/coverage/coverage.opencover.xml'
+    enabled: false
+
+- task: UseDotNet@2
+  displayName: 'Install .NET Core SDK'
+  inputs:
+    version: 3.1.x
+    performMultiLevelLookup: true
+
+- task: DotNetCoreCLI@2
+  displayName: 'Restore packages'
+  inputs:
+    command: restore
+    projects: '**/*.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    command: build
+    projects: '**/*.sln'
+    arguments: '--configuration Release' 
+
+- task: DotNetCoreCLI@2
+  displayName: 'Run Unit Tests'
+  inputs:
+    command: test
+    projects: '**/*Tests/*.csproj'
+    arguments: '--no-build --configuration Release /p:CollectCoverage=true /p:CoverletOutput=$(Build.SourcesDirectory)/coverage/ /p:CoverletOutputFormat=opencover'
+    publishTestResults: false
+  continueOnError: true
+  enabled: false
+
+- script: |
+    dotnet tool install dotnet-reportgenerator-globaltool --tool-path .
+    ./reportgenerator "-reports:$(Build.SourcesDirectory)/coverage/coverage.opencover.xml" -targetdir:coverage/Cobertura "-reporttypes:Cobertura;HTMLInline;HTMLChart"
+  condition: eq( variables['Agent.OS'], 'Linux' )
+  displayName: Run Reportgenerator on Linux
+  continueOnError: true
+  enabled: false
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish Code Coverage'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(Build.SourcesDirectory)/coverage/coverage.opencover.xml'
+    reportDirectory: '$(Build.SourcesDirectory)/coverage'
+  continueOnError: true
+  enabled: false
+
+- task: DotNetCoreInstaller@0
+  displayName: 'Use .NET Core SDK 2.2.103 For Sonar Cloud'
+  inputs:
+    version: '2.2.103'
+
+
+- task: SonarCloudAnalyze@1
+  displayName: 'Run SonarCloud Code Analysis'
+  continueOnError: false
+  enabled: false
+
+- task: SonarCloudPublish@1
+  displayName: 'Publish Quality Gate Result'
+  continueOnError: false
+  enabled: false
