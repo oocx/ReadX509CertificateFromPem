@@ -97,7 +97,7 @@ namespace Oocx.ReadX509CertificateFromPem
             }
         }
 
-        private static X509Certificate2 LoadCertificate(string certificateFileName)
+        public X509Certificate2 LoadCertificate(string certificateFileName)
         {
             var certificateBytes = PemDecoder.DecodeSectionFromFile(certificateFileName, "CERTIFICATE");
             var certificate = new X509Certificate2(certificateBytes);
