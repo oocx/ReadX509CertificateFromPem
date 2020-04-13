@@ -11,6 +11,20 @@ pool:
 
 steps:
 
+- task: NodeTool@0
+  inputs:
+    versionSpec: '13.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install -g semantic-release
+  displayName: 'install semantic-release'
+
+- script: |
+    node_modules/.bin/semantic-release
+  displayName: 'run semantic-release'
+
+
 - task: DotNetCoreInstaller@0
   displayName: 'Use .NET Core SDK 2.2.103 For Sonar Cloud'
   inputs:
@@ -44,7 +58,7 @@ steps:
   inputs:
     command: build
     projects: '**/*.sln'
-    arguments: '--configuration Release' 
+    arguments: '--configuration Release'
 
 - task: DotNetCoreCLI@2
   displayName: 'Run Unit Tests'
