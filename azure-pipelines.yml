@@ -13,11 +13,6 @@ steps:
 - checkout: self
   persistCredentials: true
 
-- script: |
-    echo $GH_TOKEN
-    echo $GH_USER
-    git push --dry-run --no-verify https://github.com/oocx/ReadX509CertificateFromPem HEAD:master
-
 - task: NodeTool@0
   inputs:
     versionSpec: '13.x'
