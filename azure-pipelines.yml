@@ -10,9 +10,8 @@ pool:
   vmImage: 'Ubuntu-18.04'
 
 steps:
-- script: |
-    checkout: self
-    persistcredentials: true
+- checkout: self
+  persistCredentials: true
 
 - script: |
     echo $GH_TOKEN
