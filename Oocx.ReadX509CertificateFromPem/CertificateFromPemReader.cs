@@ -19,14 +19,30 @@ namespace Oocx.ReadX509CertificateFromPem
         /// <returns>A new X509Certificate2 instance based on the key and certificate files</returns>
         public X509Certificate2 LoadCertificateWithPrivateKey(string certificateFileName, string privateKeyFileName)
         {
-            var privateKey = LoadPrivateKey(privateKeyFileName);
-            var certificate = LoadCertificate(certificateFileName);
+            var certString =  File.ReadAllText(certificateFileName);
+            var privateKeyString = File.ReadAllText(privateKeyFileName);
+            return LoadCertificateWithPrivateKeyFromStrings(certString, privateKeyString);
+        }
+
+        /// <summary>
+        /// Creates a X509Certificate2 from a certificate from the PEM string <paramref name="certificateData"/>
+        /// and a private key from the PEM string <paramref name="privateKeyData"/>.
+        /// </summary>
+        /// <param name="certificateData">A PEM-encoded certificate</param>
+        /// <param name="privateKeyData">A PEM-encoded private key</param>
+        /// <returns>A new X509Certificate2 instance based on the key and certificate files</returns>
+        public X509Certificate2 LoadCertificateWithPrivateKeyFromStrings(string certificateData, string privateKeyData)
+        {
+            var privateKey = LoadPrivateKey(privateKeyData);
+
+            var certificateBytes = PemDecoder.DecodeSection(certificateData, "CERTIFICATE");
+            var certificate = LoadCertificate(certificateBytes);
+
             return CreateCertificateWithPrivateKey(certificate, privateKey);
         }
 
-        private static AsymmetricAlgorithm LoadPrivateKey(string keyFileName)
+        private static AsymmetricAlgorithm LoadPrivateKey(string privateKeyPem)
         {
-            var privateKeyPem = File.ReadAllText(keyFileName);
             var keyType = DetectKeyType(privateKeyPem);
             var privateKeyBytes = PemDecoder.DecodeSection(privateKeyPem, keyType);
             var privateKey = GetPrivateKey(keyType, new ReadOnlyMemory<byte>(privateKeyBytes));
@@ -100,9 +116,15 @@ namespace Oocx.ReadX509CertificateFromPem
         public X509Certificate2 LoadCertificate(string certificateFileName)
         {
             var certificateBytes = PemDecoder.DecodeSectionFromFile(certificateFileName, "CERTIFICATE");
+            return LoadCertificate(certificateBytes);
+        }
+
+        public X509Certificate2 LoadCertificate(byte[] certificateBytes)
+        {
             var certificate = new X509Certificate2(certificateBytes);
             return certificate;
         }
+
         private static X509Certificate2 CreateCertificateWithPrivateKey(X509Certificate2 certificate, AsymmetricAlgorithm privateKey)
         {
             var builder = new Pkcs12Builder();
