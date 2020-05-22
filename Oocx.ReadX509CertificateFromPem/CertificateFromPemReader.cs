@@ -25,8 +25,8 @@ namespace Oocx.ReadX509CertificateFromPem
         }
 
         /// <summary>
-        /// Creates a X509Certificate2 from a certificate from the string <paramref name="certificateData"/>
-        /// and a private key from the string <paramref name="privateKeyData"/>.
+        /// Creates a X509Certificate2 from a certificate from the PEM string <paramref name="certificateData"/>
+        /// and a private key from the PEM string <paramref name="privateKeyData"/>.
         /// </summary>
         /// <param name="certificateData">A PEM-encoded certificate</param>
         /// <param name="privateKeyData">A PEM-encoded private key</param>
