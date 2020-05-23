@@ -29,3 +29,14 @@ As .NET core uses different, platform specific implementations for cryptography,
 
 I'm using this code in a .net core container that runs on kubernetes and gets its certificate from cert-manager, which proviedes certificaets as
 Kubernetes secrets with key and certificate in PEM format.
+
+
+
+## Contributing
+
+Contributions are welcome!
+
+Depending on how busy I am, it could take a few days before I find time to review and accept a PR.
+
+Please follow the [conventional commit guidelines](https://www.conventionalcommits.org/en/v1.0.0/) for your commit messages and also add unit tests for your code.
+
