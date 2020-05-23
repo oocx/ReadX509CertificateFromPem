@@ -26,8 +26,9 @@ steps:
   displayName: 'install semantic-release'
 
 - script: |
-   node_modules/.bin/semantic-release
+    ./node_modules/.bin/semantic-release
   displayName: 'run semantic-release'
+  workingDirectory: $(Build.SourcesDirectory)
 
 
 - task: DotNetCoreInstaller@0
