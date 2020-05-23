@@ -1,1 +1,11 @@
-plugins: ['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator' ]
+{
+  plugins:
+    [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/exec",
+        { "prepareCmd": "prepare.sh ${nextRelease.version}" },
+      ],
+    ],
+}

@@ -9,6 +9,9 @@ trigger:
 pool:
   vmImage: 'Ubuntu-18.04'
 
+variables:
+  publish: false
+
 steps:
 - checkout: self
   persistCredentials: true
