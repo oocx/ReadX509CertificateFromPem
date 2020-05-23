@@ -74,7 +74,7 @@ steps:
     arguments: '--no-build --configuration Release /p:CollectCoverage=true /p:CoverletOutput=$(Build.SourcesDirectory)/coverage/ /p:CoverletOutputFormat=opencover'
     publishTestResults: false
   continueOnError: true
-  enabled: false
+  enabled: true
 
 - script: |
     dotnet tool install dotnet-reportgenerator-globaltool --tool-path .
@@ -93,11 +93,26 @@ steps:
   continueOnError: true
   enabled: false
 
+  - task: DotNetCoreCLI@2
+  displayName: Create Package
+  inputs:
+    command: pack
+    arguments: '--configuration Release --no-build --no-restore'
+  condition: and(succeeded(), eq(variables['publish'], true))
+
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish package as build artifcat'
+  inputs:
+    pathToPublish: Oocx.ReadX509CertificateFromPem\bin\Release\Oocx.ReadX509CertificateFromPem.$(version).nupkg
+    artifactName: package
+  condition: and(succeeded(), eq(variables['publish'], true))
+
+
 - task: DotNetCoreInstaller@0
   displayName: 'Use .NET Core SDK 2.2.103 For Sonar Cloud'
   inputs:
     version: '2.2.103'
-
 
 - task: SonarCloudAnalyze@1
   displayName: 'Run SonarCloud Code Analysis'
