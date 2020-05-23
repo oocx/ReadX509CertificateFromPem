@@ -26,6 +26,7 @@ steps:
   displayName: 'install semantic-release'
 
 - script: |
+    chmod a+x ./prepare.sh
     ./node_modules/.bin/semantic-release
   displayName: 'run semantic-release'
   workingDirectory: $(Build.SourcesDirectory)
