@@ -97,14 +97,16 @@ steps:
   displayName: Create Package
   inputs:
     command: pack
-    arguments: '--configuration Release --no-build --no-restore'
+    nobuild: true
+    configurationToPack: Release
+    artifactName: --no-restore
   condition: and(succeeded(), eq(variables['publish'], true))
 
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish package as build artifcat'
   inputs:
-    pathToPublish: Oocx.ReadX509CertificateFromPem\bin\Release\Oocx.ReadX509CertificateFromPem.$(version).nupkg
+    pathToPublish: Oocx.ReadX509CertificateFromPem.$(version).nupkg
     artifactName: package
   condition: and(succeeded(), eq(variables['publish'], true))
 
