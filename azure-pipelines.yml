@@ -26,7 +26,7 @@ steps:
   displayName: 'install semantic-release'
 
 - script: |
-    semantic-release
+   node_modules/.bin/semantic-release
   displayName: 'run semantic-release'
 
 
