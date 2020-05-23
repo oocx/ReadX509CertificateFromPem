@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Oocx.ReadX509CertificateFromPem;
+using System.IO;
 
 namespace Oocx.ReadX509CertificateFromPem.Tests
 {
@@ -43,6 +44,20 @@ namespace Oocx.ReadX509CertificateFromPem.Tests
 
             certificate.SerialNumber.Should().Be("00DBE1B57BA78B7A78");
             certificate.HasPrivateKey.Should().BeTrue();
+        }
+
+        [TestMethod]
+        [DeploymentItem("rsa")]
+        public void ShouldLoadMatchingCertificatesFromFileOrString()
+        {
+            var sut = new CertificateFromPemReader();
+            var certificateFile = sut.LoadCertificateWithPrivateKey("rsa/certificate.pem", "rsa/key.pem");
+            var certificateString = sut.LoadCertificateWithPrivateKeyFromStrings(File.ReadAllText("rsa/certificate.pem"), File.ReadAllText("rsa/key.pem"));
+
+
+            certificateString.Thumbprint.Should().Be(certificateFile.Thumbprint);
+            certificateString.HasPrivateKey.Should().BeTrue();
+            certificateString.PrivateKey.KeyExchangeAlgorithm.Should().Be("RSA");
         }
     }
 }
