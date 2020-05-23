@@ -26,6 +26,8 @@ steps:
   displayName: 'install semantic-release'
 
 - script: |
+    ls -la
+    ls node_modules -lar
     ./node_modules/.bin/semantic-release
   displayName: 'run semantic-release'
   workingDirectory: $(Build.SourcesDirectory)
