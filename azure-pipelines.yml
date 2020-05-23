@@ -106,7 +106,7 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish package as build artifcat'
   inputs:
-    pathToPublish: Oocx.ReadX509CertificateFromPem.$(version).nupkg
+    pathToPublish: $(Build.ArtifactStagingDirectory)/Oocx.ReadX509CertificateFromPem.$(version).nupkg
     artifactName: package
   condition: and(succeeded(), eq(variables['publish'], true))
 
