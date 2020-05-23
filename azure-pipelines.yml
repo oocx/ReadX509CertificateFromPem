@@ -93,7 +93,7 @@ steps:
   continueOnError: true
   enabled: false
 
-  - task: DotNetCoreCLI@2
+- task: DotNetCoreCLI@2
   displayName: Create Package
   inputs:
     command: pack
