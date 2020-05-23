@@ -1,20 +1,12 @@
 {
   "name": "oocx.readx509certificatefrompem",
   "version": "1.0.0",
-  "description": "[![Build Status](https://dev.azure.com/oocx/ReadX509CertificateFromPem/_apis/build/status/oocx.ReadX509CertificateFromPem?branchName=master)](https://dev.azure.com/oocx/ReadX509CertificateFromPem/_build/latest?definitionId=4&branchName=master)\r [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=oocx_ReadX509CertificateFromPem&metric=alert_status)](https://sonarcloud.io/dashboard?id=oocx_ReadX509CertificateFromPem)\r [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=oocx_ReadX509CertificateFromPem&metric=coverage)](https://sonarcloud.io/dashboard?id=oocx_ReadX509CertificateFromPem)\r [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=oocx_ReadX509CertificateFromPem&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=oocx_ReadX509CertificateFromPem)\r [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=oocx_ReadX509CertificateFromPem&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=oocx_ReadX509CertificateFromPem)\r [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=oocx_ReadX509CertificateFromPem&metric=security_rating)](https://sonarcloud.io/dashboard?id=oocx_ReadX509CertificateFromPem)",
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
     "@semantic-release/exec": "^5.0.0",
     "semantic-release": "^17.0.7"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "npm install semantic-release @semantic-release/exec -D"
-  },
-  "author": "",
-  "license": "ISC"
+  "author": "Mathias Raacke",
+  "license": "MIT"
 }
