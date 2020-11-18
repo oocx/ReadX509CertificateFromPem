@@ -5,7 +5,7 @@
   "dependencies": {},
   "devDependencies": {
     "@semantic-release/exec": "^5.0.0",
-    "semantic-release": "^17.0.7"
+    "semantic-release": "^17.2.3"
   },
   "author": "Mathias Raacke",
   "license": "MIT"
